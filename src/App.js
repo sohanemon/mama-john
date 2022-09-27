@@ -1,9 +1,11 @@
 import Header from "./components/header";
+import Shop from "./components/shop";
 
 function App() {
   return (
-    <div className='App'>
+    <div className=''>
       <Header />
+      <Shop />
     </div>
   );
 }
