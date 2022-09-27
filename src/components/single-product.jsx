@@ -3,6 +3,8 @@ function Product({
   handleAddedProduct,
   img,
   name,
+  shipping,
+  id,
   price,
   seller,
   ratings,
@@ -26,7 +28,7 @@ function Product({
         </div>
       </div>
       <button
-        onClick={() => handleAddedProduct({ name, price })}
+        onClick={() => handleAddedProduct({ id, name, price, shipping })}
         className='h-12  bg-yellow-100 hover:bg-yellow-200 border-t rounded-b absolute bottom-0 w-full flex items-center gap-2 text-gray-800 justify-center text-base font-medium'
       >
         Add to cart <BsCartPlusFill className=' text-xl' />

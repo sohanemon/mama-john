@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { addToDb, loadFromDb } from "../utilities/fakedb";
 import Product from "./single-product";
 import Summary from "./summary";
 const Shop = () => {
@@ -10,13 +11,25 @@ const Shop = () => {
       .then((res) => res.json())
       .then((data) => setProducts(data));
     let totalPrice = addedProduct.reduce((p, c) => p + c.price, 0);
-    setCost({ totalPrice });
+    let shippingPrice = addedProduct.reduce((p, c) => p + c.shipping, 0);
+    let tax = parseFloat(totalPrice * 0.1).toFixed(2);
+    let items = addedProduct.length;
+    let grandTotal = parseFloat(totalPrice + shippingPrice + tax).toFixed(2);
+    setCost({ totalPrice, shippingPrice, tax, items, grandTotal });
+
     return () => {};
   }, [addedProduct]);
+
+  useEffect(() => {
+    const storedItems = loadFromDb();
+    console.log(storedItems);
+    return () => {};
+  }, []);
 
   const handleAddedProduct = (product) => {
     // addedProduct.push(product);
     setAddedProduct((p) => [...p, product]);
+    addToDb(product.id);
     //debugger;
   };
   return (
@@ -30,7 +43,7 @@ const Shop = () => {
           />
         ))}
       </div>
-      <Summary cost={cost} addedProduct={addedProduct} />
+      <Summary {...cost} />
     </div>
   );
 };
