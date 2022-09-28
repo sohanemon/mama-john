@@ -41,6 +41,7 @@ const Shop = () => {
   const handleDeleteCart = () => {
     deleteShoppingCart();
     setCost({});
+    window.location.reload();
   };
 
   const handleAddedProduct = (product) => {

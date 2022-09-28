@@ -1,4 +1,6 @@
+import { BiRocket } from "react-icons/bi";
 import { BsCartPlusFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 function Product({
   handleAddedProduct,
   img,
@@ -29,12 +31,24 @@ function Product({
         </div>
       </div>
       <button
-        onClick={() =>
-          handleAddedProduct({ id, name, price, shipping, quantity })
-        }
+        onClick={() => {
+          toast.success("Successfully added.", {
+            position: "bottom-right",
+            autoClose: 1500,
+            closeOnClick: true,
+            pauseOnHover: true,
+            hideProgressBar: false,
+            closeButton: false,
+            className:
+              "text-lg !text-green-600 !bg-green-100 !font-semibold w-max",
+            progressClassName: "!bg-green-500",
+            icon: <BiRocket className='text-xl animate-bounce' />,
+          });
+          handleAddedProduct({ id, name, price, shipping, quantity });
+        }}
         className='h-12  bg-yellow-100 hover:bg-yellow-200 border-t rounded-b absolute bottom-0 w-full flex items-center gap-2 text-gray-800 justify-center text-base font-medium'
       >
-        Add to cart <BsCartPlusFill className=' text-xl' />
+        Add to cart <BsCartPlusFill className='' />
       </button>
     </div>
   );

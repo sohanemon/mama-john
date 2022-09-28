@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Header from "./components/header";
 import Home from "./components/home";
 import Inventory from "./components/inventory";
@@ -7,6 +8,7 @@ import Shop from "./components/shop";
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import model from "../images/austin.png";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const navigate = useNavigate();
