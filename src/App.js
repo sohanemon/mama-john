@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/header";
+import Home from "./components/home";
+import Inventory from "./components/inventory";
 import Shop from "./components/shop";
 
 function App() {
@@ -7,8 +9,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        {" "}
-        <Route path='/' element={<h1>Itx imon</h1>} />
+        <Route path='/' element={<Home />} />
         <Route
           path='/shop'
           element={
@@ -25,6 +26,9 @@ function App() {
           }
         />
         <Route path='order' element={<h1>ok order herer</h1>} />
+        <Route path='inventory' element={<Inventory />}>
+          <Route path='go' element={<h1>emon nested</h1>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

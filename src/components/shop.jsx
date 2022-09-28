@@ -56,7 +56,7 @@ const Shop = () => {
     //debugger;
   };
   return (
-    <div className='grid grid-cols-12  '>
+    <div className='grid grid-cols-12 '>
       <div className='grid col-span-10 grid-cols-3 place-content-center gap-4 w-5/6  mt-20  mx-auto'>
         {products.map((el) => (
           <Product
