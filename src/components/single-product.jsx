@@ -39,8 +39,7 @@ function Product({
             pauseOnHover: true,
             hideProgressBar: false,
             closeButton: false,
-            className:
-              "text-lg !text-green-600 !bg-green-100 !font-semibold w-max",
+            className: " !text-green-600 !bg-green-100  !font-medium w-max",
             progressClassName: "!bg-green-500",
             icon: <BiRocket className='text-xl animate-bounce' />,
           });
@@ -48,7 +47,7 @@ function Product({
         }}
         className='h-12  bg-yellow-100 hover:bg-yellow-200 border-t rounded-b absolute bottom-0 w-full flex items-center gap-2 text-gray-800 justify-center text-base font-medium'
       >
-        Add to cart <BsCartPlusFill className='' />
+        Add to cart <BsCartPlusFill className='text-xl' />
       </button>
     </div>
   );
