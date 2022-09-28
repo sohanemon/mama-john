@@ -10,10 +10,18 @@ const Shop = () => {
     fetch("./data/products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
-    let totalPrice = addedProduct.reduce((p, c) => p + c.price, 0);
-    let shippingPrice = addedProduct.reduce((p, c) => p + c.shipping, 0);
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    let totalPrice = addedProduct.reduce(
+      (p, c) => p + c?.price * c?.quantity,
+      0
+    );
+    let shippingPrice = addedProduct.reduce((p, c) => p + c?.shipping, 0);
     let tax = parseFloat(totalPrice * 0.1).toFixed(2);
-    let items = addedProduct.length;
+    let items = addedProduct.reduce((p, c) => p + c?.quantity, 0);
     let grandTotal = parseFloat(totalPrice + shippingPrice + tax).toFixed(2);
     setCost({ totalPrice, shippingPrice, tax, items, grandTotal });
 
@@ -21,15 +29,26 @@ const Shop = () => {
   }, [addedProduct]);
 
   useEffect(() => {
-    const storedItems = loadFromDb();
-    console.log(storedItems);
+    //getting data from local storage for first time
+    const dbObject = loadFromDb();
+    const matchedProduct = Object.keys(dbObject).map((el) =>
+      products.find((i) => i.id === el)
+    );
+    const x = matchedProduct.every((el) => el); //note: let check the data is loaded or not
+    x && matchedProduct.forEach((p) => (p.quantity = dbObject[p?.id]));
+    setAddedProduct(matchedProduct);
     return () => {};
-  }, []);
+  }, [products]);
 
   const handleAddedProduct = (product) => {
     // addedProduct.push(product);
+    if (!product.quantity)
+      product.quantity = 1; //because initially quantity is 0 by default
+    else ++product.quantity;
+
     setAddedProduct((p) => [...p, product]);
     addToDb(product.id);
+    // console.log(addedProduct);
     //debugger;
   };
   return (
