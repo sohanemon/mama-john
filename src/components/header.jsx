@@ -1,4 +1,4 @@
-import logo from "../images/Logo.svg";
+import logo from "../images/Logo.png";
 const Header = () => {
   return (
     <nav className='bg-gray-800 flex items-center sticky top-0 z-10 shadow-md justify-between px-28'>
