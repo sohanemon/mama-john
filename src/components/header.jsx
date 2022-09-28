@@ -3,7 +3,7 @@ const Header = () => {
   return (
     <nav className='bg-gray-800 flex items-center sticky top-0 z-10 shadow-md justify-between px-28'>
       <a href='/'>
-        <img src={logo} alt='' />
+        <img src={logo} alt='logo' />
       </a>
       <ul className='flex gap-8'>
         <li className='li-icon'>
