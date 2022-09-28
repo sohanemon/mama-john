@@ -1,25 +1,26 @@
+import { Link } from "react-router-dom";
 import logo from "../images/Logo.png";
 const Header = () => {
   return (
     <nav className='bg-gray-800 flex items-center sticky top-0 z-10 shadow-md justify-between px-28'>
-      <a href='/'>
+      <Link to='/'>
         <img src={logo} alt='logo' />
-      </a>
+      </Link>
       <ul className='flex gap-8'>
         <li className='li-icon'>
-          <a href='/'>Home</a>
+          <Link to='/'>Home</Link>
         </li>
         <li className='li-icon'>
-          <a href='/'>Order</a>
+          <Link to='/shop'>Shop</Link>
         </li>
         <li className='li-icon'>
-          <a href='/'>Order Review</a>
+          <Link to='order'>Order Review</Link>
         </li>
         <li className='li-icon'>
-          <a href='/'>Manage Inventory</a>
+          <Link to='/'>Manage Inventory</Link>
         </li>
         <li className='li-icon'>
-          <a href='/'>Login</a>
+          <Link to='/'>Login</Link>
         </li>
       </ul>
     </nav>
