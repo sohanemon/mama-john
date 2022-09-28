@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addToDb, loadFromDb } from "../utilities/fakedb";
+import { addToDb, deleteShoppingCart, loadFromDb } from "../utilities/fakedb";
 import Product from "./single-product";
 import Summary from "./summary";
 const Shop = () => {
@@ -39,6 +39,10 @@ const Shop = () => {
     setAddedProduct(matchedProduct);
     return () => {};
   }, [products]);
+  const handleDeleteCart = () => {
+    deleteShoppingCart();
+    setCost({});
+  };
 
   const handleAddedProduct = (product) => {
     // addedProduct.push(product);
@@ -62,7 +66,7 @@ const Shop = () => {
           />
         ))}
       </div>
-      <Summary {...cost} />
+      <Summary handleDeleteCart={handleDeleteCart} {...cost} />
     </div>
   );
 };
