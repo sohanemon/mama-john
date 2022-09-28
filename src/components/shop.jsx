@@ -15,12 +15,11 @@ const Shop = () => {
   }, []);
 
   useEffect(() => {
-    let totalPrice = addedProduct.reduce(
-      (p, c) => p + c?.price * c?.quantity,
-      0
+    let totalPrice = parseFloat(
+      addedProduct.reduce((p, c) => p + c?.price * c?.quantity, 0)
     );
     let shippingPrice = addedProduct.reduce((p, c) => p + c?.shipping, 0);
-    let tax = parseFloat(totalPrice * 0.1).toFixed(2);
+    let tax = parseFloat(parseFloat(totalPrice * 0.1).toFixed(2));
     let items = addedProduct.reduce((p, c) => p + c?.quantity, 0);
     let grandTotal = parseFloat(totalPrice + shippingPrice + tax).toFixed(2);
     setCost({ totalPrice, shippingPrice, tax, items, grandTotal });
