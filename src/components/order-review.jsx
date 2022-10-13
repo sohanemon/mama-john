@@ -5,22 +5,26 @@ import SingleOrderCard from "./Order-review/single-order-card";
 import Summary from "./Order-review/summary";
 export const AddedProduct = createContext([]);
 const OrderReview = () => {
-  const [localStorage, setLocalStorage] = useState({});
+  const products = useContext(ProductContext);
+  const [matchedProduct, setmatchedProduct] = useState([]);
   useEffect(() => {
-    setLocalStorage(loadFromDb());
+    updateMatchedProduct();
     return () => {};
   }, []);
-
-  const products = useContext(ProductContext);
-
-  let matchedProduct = [];
-  for (const i in localStorage) {
-    const matched = products.find((el) => el.id === i);
-    matched.quantity = localStorage[i];
-    matchedProduct.push(matched);
+  function updateMatchedProduct() {
+    let localStorage = loadFromDb();
+    let matchedWithLS = [];
+    for (const i in localStorage) {
+      const matched = products.find((el) => el.id === i);
+      matched.quantity = localStorage[i];
+      matchedWithLS.push(matched);
+    }
+    setmatchedProduct(matchedWithLS);
   }
   return (
-    <AddedProduct.Provider value={{ matchedProduct, localStorage }}>
+    <AddedProduct.Provider
+      value={{ matchedProduct, localStorage, updateMatchedProduct }}
+    >
       <div className=''>
         <div className='grid grid-cols-2'>
           <div className='space-y-5 flex my-10 flex-col justify-center'>

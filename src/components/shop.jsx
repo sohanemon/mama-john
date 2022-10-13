@@ -3,11 +3,10 @@ import { ProductContext } from "../App";
 import { addToDb, deleteShoppingCart, loadFromDb } from "../utilities/fakedb";
 import Product from "./single-product";
 import Summary from "./summary";
-const Shop = () => {
+const Shop = (d) => {
   const products = useContext(ProductContext);
   const [addedProduct, setAddedProduct] = useState([]);
   const [cost, setCost] = useState({});
-
   useEffect(() => {
     let totalPrice = parseFloat(
       addedProduct.reduce((p, c) => p + c?.price * c?.quantity, 0)
@@ -46,8 +45,6 @@ const Shop = () => {
 
     setAddedProduct((p) => [...p, product]);
     addToDb(product.id);
-    // console.log(addedProduct);
-    //debugger;
   };
   return (
     <div className='grid grid-cols-12 '>
