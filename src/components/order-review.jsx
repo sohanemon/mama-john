@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ProductContext } from "../App";
 import { loadFromDb } from "../utilities/fakedb";
 import SingleOrderCard from "./Order-review/single-order-card";
 import Summary from "./Order-review/summary";
-
+export const AddedProduct = createContext([]);
 const OrderReview = () => {
   const [localStorage, setLocalStorage] = useState({});
   useEffect(() => {
@@ -19,20 +19,21 @@ const OrderReview = () => {
     matched.quantity = localStorage[i];
     matchedProduct.push(matched);
   }
-  console.log(matchedProduct);
   return (
-    <div className=''>
-      <div className='grid grid-cols-2'>
-        <div className='space-y-5 flex flex-col justify-center'>
-          {matchedProduct.map((el) => (
-            <SingleOrderCard {...el} key={el.id} />
-          ))}
-        </div>
-        <div>
-          <Summary />
+    <AddedProduct.Provider value={{ matchedProduct, localStorage }}>
+      <div className=''>
+        <div className='grid grid-cols-2'>
+          <div className='space-y-5 flex flex-col justify-center'>
+            {matchedProduct.map((el) => (
+              <SingleOrderCard {...el} key={el.id} />
+            ))}
+          </div>
+          <div>
+            <Summary />
+          </div>
         </div>
       </div>
-    </div>
+    </AddedProduct.Provider>
   );
 };
 
