@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ProductContext } from "../App";
 import { addToDb, deleteShoppingCart, loadFromDb } from "../utilities/fakedb";
 import Product from "./single-product";
 import Summary from "./summary";
 const Shop = () => {
-  const [products, setProducts] = useState([]);
+  const products = useContext(ProductContext);
   const [addedProduct, setAddedProduct] = useState([]);
   const [cost, setCost] = useState({});
-  useEffect(() => {
-    fetch("./data/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-
-    return () => {};
-  }, []);
 
   useEffect(() => {
     let totalPrice = parseFloat(
