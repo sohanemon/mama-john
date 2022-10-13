@@ -13,7 +13,8 @@ function App() {
     fetch("./data/products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
-
+    if (window.location.pathname !== "/") window.location.pathname = "/";
+    //note: go to route page at any cost. Alternative to Netlify's _redirects
     return () => {};
   }, []);
   return (
