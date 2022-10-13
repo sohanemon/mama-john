@@ -1,5 +1,6 @@
 import { RiDeleteBinLine } from "react-icons/ri";
-const SingleOrderCard = ({ name, price, shipping, img }) => {
+import { removeFromDb } from "../../utilities/fakedb";
+const SingleOrderCard = ({ name, price, shipping, img, id }) => {
   return (
     <div className='h-28 flex mx-auto w-full max-w-md p-2 gap-4 border border-gray-400 rounded-md items-center'>
       <img className='h-24 w-24 rounded-md object-cover' src={img} alt='' />
@@ -9,15 +10,20 @@ const SingleOrderCard = ({ name, price, shipping, img }) => {
             {name}
           </h1>
           <h2>
-            Price: <span>{price}</span>
+            Price:{" "}
+            <span className='text-[#FF9900] font-semibold'>${price}</span>
           </h2>
           <h2>
-            shipping <span>{shipping}</span>
+            shipping{" "}
+            <span className='text-[#FF9900] font-semibold'>${shipping}</span>
           </h2>
         </section>
       </aside>
       <aside>
-        <RiDeleteBinLine className='bg-red-500/30 rounded-full h-14 w-14 p-3 text-red-500 mr-4 cursor-pointer' />
+        <RiDeleteBinLine
+          onClick={() => removeFromDb(id)}
+          className='bg-red-500/30 rounded-full h-14 w-14 p-3 text-red-500 mr-4 cursor-pointer'
+        />
       </aside>
     </div>
   );

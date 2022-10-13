@@ -23,7 +23,7 @@ const OrderReview = () => {
     <AddedProduct.Provider value={{ matchedProduct, localStorage }}>
       <div className=''>
         <div className='grid grid-cols-2'>
-          <div className='space-y-5 flex flex-col justify-center'>
+          <div className='space-y-5 flex my-10 flex-col justify-center'>
             {matchedProduct.map((el) => (
               <SingleOrderCard {...el} key={el.id} />
             ))}
