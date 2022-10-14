@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Header from "./components/header";
 import Home from "./components/home";
 import Inventory from "./components/inventory";
+import Login from "./components/login/login";
 import OrderReview from "./components/order-review";
 import Shop from "./components/shop";
 export const ProductContext = createContext([]);
@@ -40,6 +41,7 @@ function App() {
             }
           />
           <Route path='order' element={<OrderReview />} />
+          <Route path='login' element={<Login />} />
           <Route path='inventory' element={<Inventory />}>
             <Route path='go' element={<h1>emon nested</h1>} />
           </Route>
