@@ -1,11 +1,11 @@
 import Common from "./common";
 
-const Login = () => {
+const Signup = () => {
   return (
     <>
-      <Common />
+      <Common signup />
     </>
   );
 };
 
-export default Login;
+export default Signup;
