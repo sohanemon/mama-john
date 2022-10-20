@@ -4,19 +4,24 @@ import { UserContext } from "../contexts/user-provider";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { sliceError } from "../../utilities/slice-error";
-const Common = ({ signup: s }) => {
+const Common = ({ signup: s, pathname }) => {
   const { loginWithGoogle, loginWithEmail, createUserWithEmail } =
     useContext(UserContext);
   const [message, setMessage] = useState(null);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     setMessage(null);
-    if (s && data.password === data.confirmpassword) {
-      createUserWithEmail(data.email, data.password).catch((error) =>
+
+    if (s) {
+      if (data.password !== data.confirmpassword) {
+        setMessage("Password doesn't match");
+        return;
+      }
+      createUserWithEmail(data.email, data.password, pathname).catch((error) =>
         setMessage(sliceError(error))
       );
     } else {
-      loginWithEmail(data.email, data.password).catch((err) =>
+      loginWithEmail(data.email, data.password, pathname).catch((err) =>
         setMessage(sliceError(err))
       );
     }
@@ -66,7 +71,7 @@ const Common = ({ signup: s }) => {
               <hr className=' w-full border-t-2 border-gray-300 -translate-y-[10px]' />
             </div>
             <button
-              onClick={loginWithGoogle}
+              onClick={() => loginWithGoogle(pathname)}
               className='rounded h-12 border border-gray-400 hover:border-orange-400 hover:text-orange-400 group text-gray-800  flex items-center justify-center gap-x-2'
             >
               <FcGoogle className='text-2xl group-hover:animate-mySpin' />

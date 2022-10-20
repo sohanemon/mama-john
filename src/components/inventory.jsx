@@ -1,9 +1,10 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import { Lol } from "./lol";
 
 const Inventory = () => {
   return (
     <div>
-      emon
+      <Lol />
       <div>
         <Outlet />
       </div>

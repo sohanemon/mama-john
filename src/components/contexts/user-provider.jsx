@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         // ...
@@ -27,33 +27,33 @@ const UserProvider = ({ children }) => {
       }
     });
 
-    return () => {};
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const loginWithGoogle = () => {
+  const loginWithGoogle = (pathname) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        setTimeout(() => navigate("/"), 100);
+        setTimeout(() => navigate(pathname), 100);
       })
-      .catch((error) => {
-        console.log("🚀 > loginWithGoogle > error", error);
-      });
+      .catch((error) => {});
   };
-  const createUserWithEmail = async (email, password) => {
+  const createUserWithEmail = async (email, password, pathname) => {
     return createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         setUser(userCredential.user);
-        setTimeout(() => navigate("/"), 100);
+        setTimeout(() => navigate(pathname), 100);
       }
     );
   };
-  const loginWithEmail = async (email, password) => {
+  const loginWithEmail = async (email, password, pathname) => {
     return signInWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         setUser(userCredential.user);
-        setTimeout(() => navigate("/"), 100);
+        setTimeout(() => navigate(pathname), 100);
       }
     );
   };
@@ -65,7 +65,6 @@ const UserProvider = ({ children }) => {
         navigate("/login");
       })
       .catch((error) => {
-        console.log("🚀 > signOut > error", error);
         return {};
       });
   };

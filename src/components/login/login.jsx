@@ -1,9 +1,13 @@
+import { useLocation } from "react-router-dom";
 import Common from "./common";
 
 const Login = () => {
+  const {
+    state: { pathname },
+  } = useLocation();
   return (
     <>
-      <Common />
+      <Common pathname={pathname} />
     </>
   );
 };
