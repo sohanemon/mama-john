@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./components/contexts/private-route";
+import UserProvider from "./components/contexts/user-provider";
 import Header from "./components/header";
 import Home from "./components/home";
 import Inventory from "./components/inventory";
 import Login from "./components/login/login";
+import NotFound from "./components/login/notfound";
 import Signup from "./components/login/signup";
 import OrderReview from "./components/order-review";
 import Shop from "./components/shop";
@@ -21,34 +24,51 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <ProductContext.Provider value={products}>
-        <ToastContainer />
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route
-            path='/shop'
-            element={
-              <>
-                {" "}
-                <div className=''>
-                  <h1 className='sr-only'>
-                    Author: Sohanur Rahman Emon @sohanemon
-                  </h1>
+      <UserProvider>
+        <ProductContext.Provider value={products}>
+          <ToastContainer />
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route
+              path='/shop'
+              element={
+                <>
+                  {" "}
+                  <div className=''>
+                    <h1 className='sr-only'>
+                      Author: Sohanur Rahman Emon @sohanemon
+                    </h1>
 
-                  <Shop />
-                </div>
-              </>
-            }
-          />
-          <Route path='order' element={<OrderReview />} />
-          <Route path='login' element={<Login />} />
-          <Route path='signup' element={<Signup />} />
-          <Route path='inventory' element={<Inventory />}>
-            <Route path='go' element={<h1>emon nested</h1>} />
-          </Route>
-        </Routes>
-      </ProductContext.Provider>
+                    <Shop />
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path='order'
+              element={
+                <PrivateRoute>
+                  <OrderReview />
+                </PrivateRoute>
+              }
+            />
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+            <Route
+              path='inventory'
+              element={
+                <PrivateRoute>
+                  <Inventory />
+                </PrivateRoute>
+              }
+            >
+              <Route path='go' element={<h1>emon nested</h1>} />
+            </Route>
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </ProductContext.Provider>
+      </UserProvider>
     </BrowserRouter>
   );
 }

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { UserContext } from "../contexts/user-provider";
+import { useContext } from "react";
 const Common = ({ signup: s }) => {
+  const { loginWithGoogle } = useContext(UserContext);
   return (
     <>
       {" "}
@@ -40,7 +43,10 @@ const Common = ({ signup: s }) => {
               </span>
               <hr className=' w-full border-t-2 border-gray-300 -translate-y-[10px]' />
             </div>
-            <button className='rounded h-12 border border-gray-400 hover:border-orange-400 hover:text-orange-400 group text-gray-800  flex items-center justify-center gap-x-2'>
+            <button
+              onClick={loginWithGoogle}
+              className='rounded h-12 border border-gray-400 hover:border-orange-400 hover:text-orange-400 group text-gray-800  flex items-center justify-center gap-x-2'
+            >
               <FcGoogle className='text-2xl group-hover:animate-mySpin' />
               <p className=' tracking-wide '>Continue with Google</p>
             </button>
