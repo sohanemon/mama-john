@@ -2,12 +2,11 @@ import { useLocation } from "react-router-dom";
 import Common from "./common";
 
 const Login = () => {
-  const {
-    state: { pathname },
-  } = useLocation();
+  const location = useLocation();
+  const pathname = location?.state?.pathname;
   return (
     <>
-      <Common pathname={pathname} />
+      <Common pathname={pathname || "/"} />
     </>
   );
 };

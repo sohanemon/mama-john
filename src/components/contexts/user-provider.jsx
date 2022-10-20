@@ -53,7 +53,7 @@ const UserProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         setUser(userCredential.user);
-        setTimeout(() => navigate(pathname), 100);
+        setTimeout(() => navigate(pathname || "/"), 100);
       }
     );
   };

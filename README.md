@@ -61,12 +61,14 @@ const PrivateRoute = ({ children }) => {
 const {
   state: { pathname },
 } = useLocation();
-// location.state.pathname // state={{ pathname }}
+// or
+const location = useLocation();
+const pathname = location?.state?.pathname;
 ```
 
 - now we know the previous location and go with
 
 ```js
 //login.jsx
-setTimeout(() => navigate(pathname), 100);
+setTimeout(() => navigate(pathname || "/"), 100);
 ```
