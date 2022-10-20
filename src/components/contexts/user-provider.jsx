@@ -1,9 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -33,12 +35,29 @@ const UserProvider = ({ children }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        navigate("/");
+        setTimeout(() => navigate("/"), 100);
       })
       .catch((error) => {
         console.log("🚀 > loginWithGoogle > error", error);
       });
   };
+  const createUserWithEmail = async (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        setUser(userCredential.user);
+        setTimeout(() => navigate("/"), 100);
+      }
+    );
+  };
+  const loginWithEmail = async (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        setUser(userCredential.user);
+        setTimeout(() => navigate("/"), 100);
+      }
+    );
+  };
+
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -52,7 +71,15 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, loginWithGoogle, logOut }}>
+    <UserContext.Provider
+      value={{
+        user,
+        loginWithGoogle,
+        logOut,
+        createUserWithEmail,
+        loginWithEmail,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
