@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../App";
 import { addToDb, deleteShoppingCart, loadFromDb } from "../utilities/fakedb";
@@ -24,12 +25,24 @@ const Shop = (d) => {
   useEffect(() => {
     //getting data from local storage for first time
     const dbObject = loadFromDb();
-    const matchedProduct = Object.keys(dbObject).map((el) =>
-      products.find((i) => i._id === el)
-    );
-    const x = matchedProduct.every((el) => el); //note: let check the data is loaded or not
-    x && matchedProduct.forEach((p) => (p.quantity = dbObject[p?._id]));
-    setAddedProduct(matchedProduct);
+    // const matchedProduct = Object.keys(dbObject).map((el) =>
+    //   products.find((i) => i._id === el)
+    // );
+    // const x = matchedProduct.every((el) => el); //note: let check the data is loaded or not
+    // x && matchedProduct.forEach((p) => (p.quantity = dbObject[p?._id]));
+    // setAddedProduct(matchedProduct);
+
+    // after using pagination
+    axios
+      .post(
+        `${process.env.REACT_APP_host}/productsByIds`,
+        Object.keys(dbObject)
+      )
+      .then((_) => {
+        const matchedProduct = _.data;
+        matchedProduct.forEach((p) => (p.quantity = dbObject[p?._id]));
+        setAddedProduct(matchedProduct);
+      });
     return () => {};
   }, [products]);
   const handleDeleteCart = () => {

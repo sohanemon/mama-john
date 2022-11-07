@@ -6,7 +6,7 @@ import Summary from "./Order-review/summary";
 export const AddedProduct = createContext([]);
 const OrderReview = () => {
   const { products } = useContext(ProductContext);
-  const [matchedProduct, setmatchedProduct] = useState([]);
+  const [matchedProduct, setMatchedProduct] = useState([]);
   useEffect(() => {
     updateMatchedProduct();
     return () => {};
@@ -19,7 +19,7 @@ const OrderReview = () => {
       matched.quantity = localStorageData[i];
       matchedWithLS.push(matched);
     }
-    setmatchedProduct(matchedWithLS);
+    setMatchedProduct(matchedWithLS);
   }
   return (
     <AddedProduct.Provider
