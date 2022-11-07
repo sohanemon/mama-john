@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { ProductContext } from "../App";
 import { loadFromDb } from "../utilities/fakedb";
@@ -13,13 +14,24 @@ const OrderReview = () => {
   }, []);
   function updateMatchedProduct() {
     let localStorageData = loadFromDb();
-    let matchedWithLS = [];
-    for (const i in localStorageData) {
-      const matched = products.find((el) => el._id === i);
-      matched.quantity = localStorageData[i];
-      matchedWithLS.push(matched);
-    }
-    setMatchedProduct(matchedWithLS);
+
+    axios
+      .post(
+        `${process.env.REACT_APP_host}/productsByIds`,
+        Object.keys(localStorageData)
+      )
+      .then((_) => {
+        const matchedProduct = _.data;
+        matchedProduct.forEach((p) => (p.quantity = localStorageData[p?._id]));
+        setMatchedProduct(matchedProduct);
+      });
+    // let matchedWithLS = [];
+    // for (const i in localStorageData) {
+    //   const matched = products.find((el) => el._id === i);
+    //   matched.quantity = localStorageData[i];
+    //   matchedWithLS.push(matched);
+    // }
+    // setMatchedProduct(matchedWithLS);
   }
   return (
     <AddedProduct.Provider

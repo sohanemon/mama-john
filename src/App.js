@@ -23,7 +23,6 @@ function App() {
         `${process.env.REACT_APP_host}/products?pageIdx=${query.pageIdx}&productPerView=${query.productPerView}`
       )
       .then((data) => {
-        console.log(data.data);
         setProducts(data.data.data);
         setCountProducts(data.data.count);
       });

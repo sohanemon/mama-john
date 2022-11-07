@@ -14,6 +14,7 @@ const auth = getAuth(app);
 
 export const UserContext = createContext({});
 const UserProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const [user, setUser] = useState();
@@ -21,7 +22,7 @@ const UserProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        // ...
+        setIsLoading(false);
       } else {
         console.log("No previous user found");
       }
@@ -72,6 +73,7 @@ const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        isLoading,
         user,
         loginWithGoogle,
         logOut,
