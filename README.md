@@ -72,3 +72,7 @@ const pathname = location?.state?.pathname;
 //login.jsx
 setTimeout(() => navigate(pathname || "/"), 100);
 ```
+
+# Codemon
+
+> absolute content takes `width: max-content` automatically

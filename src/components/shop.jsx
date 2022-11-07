@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../App";
 import { addToDb, deleteShoppingCart, loadFromDb } from "../utilities/fakedb";
+import Pagination from "./pagination";
 import Product from "./single-product";
 import Summary from "./summary";
 const Shop = (d) => {
-  const products = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
   const [addedProduct, setAddedProduct] = useState([]);
   const [cost, setCost] = useState({});
   useEffect(() => {
@@ -47,18 +48,23 @@ const Shop = (d) => {
     addToDb(product._id);
   };
   return (
-    <div className='grid grid-cols-12 '>
-      <div className='grid col-span-10 grid-cols-3 place-content-center gap-4 w-5/6  mt-20  mx-auto'>
-        {products.map((el) => (
-          <Product
-            handleAddedProduct={handleAddedProduct}
-            {...el}
-            key={el._id}
-          />
-        ))}
+    <section className=''>
+      <div className='grid grid-cols-12 '>
+        <div className='grid col-span-10 grid-cols-3 place-content-center gap-4 w-5/6  mt-20  mx-auto relative pb-32'>
+          {products?.map((el) => (
+            <Product
+              handleAddedProduct={handleAddedProduct}
+              {...el}
+              key={el._id}
+            />
+          ))}
+          <div className='absolute bottom-9 w-full'>
+            <Pagination />{" "}
+          </div>
+        </div>
+        <Summary handleDeleteCart={handleDeleteCart} {...cost} />
       </div>
-      <Summary handleDeleteCart={handleDeleteCart} {...cost} />
-    </div>
+    </section>
   );
 };
 

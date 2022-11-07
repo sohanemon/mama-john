@@ -5,7 +5,7 @@ import SingleOrderCard from "./Order-review/single-order-card";
 import Summary from "./Order-review/summary";
 export const AddedProduct = createContext([]);
 const OrderReview = () => {
-  const products = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
   const [matchedProduct, setmatchedProduct] = useState([]);
   useEffect(() => {
     updateMatchedProduct();

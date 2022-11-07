@@ -15,18 +15,28 @@ import Shop from "./components/shop";
 export const ProductContext = createContext([]);
 function App() {
   const [products, setProducts] = useState([]);
+  const [countProducts, setCountProducts] = useState(0);
+  const [query, setQuery] = useState({ pageIdx: 0, productPerView: 10 });
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_host}/products`)
-      .then((data) => setProducts(data.data));
-    if (window.location.pathname !== "/") window.location.pathname = "/";
+      .get(
+        `${process.env.REACT_APP_host}/products?pageIdx=${query.pageIdx}&productPerView=${query.productPerView}`
+      )
+      .then((data) => {
+        console.log(data.data);
+        setProducts(data.data.data);
+        setCountProducts(data.data.count);
+      });
+    // if (window.location.pathname !== "/") window.location.pathname = "/";
     //note: go to route page at any cost. Alternative to Netlify's _redirects
     return () => {};
-  }, []);
+  }, [query]);
   return (
     <BrowserRouter>
       <UserProvider>
-        <ProductContext.Provider value={products}>
+        <ProductContext.Provider
+          value={{ products, count: countProducts, setQuery }}
+        >
           <ToastContainer />
           <Header />
           <Routes>
