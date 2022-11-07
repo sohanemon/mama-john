@@ -14,7 +14,6 @@ const OrderReview = () => {
   function updateMatchedProduct() {
     let localStorageData = loadFromDb();
     let matchedWithLS = [];
-    console.log(localStorageData);
     for (const i in localStorageData) {
       const matched = products.find((el) => el._id === i);
       matched.quantity = localStorageData[i];

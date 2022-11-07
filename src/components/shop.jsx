@@ -44,7 +44,6 @@ const Shop = (d) => {
     else ++product.quantity;
 
     setAddedProduct((p) => [...p, product]);
-    console.log(product);
     addToDb(product._id);
   };
   return (
