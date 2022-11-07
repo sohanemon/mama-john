@@ -6,7 +6,7 @@ function Product({
   img,
   name,
   shipping,
-  id,
+  _id,
   quantity,
   price,
   seller,
@@ -43,7 +43,7 @@ function Product({
             progressClassName: "!bg-green-500",
             icon: <BiRocket className='text-xl animate-bounce' />,
           });
-          handleAddedProduct({ id, name, price, shipping, quantity });
+          handleAddedProduct({ _id, name, price, shipping, quantity });
         }}
         className='h-12  bg-yellow-100 hover:bg-yellow-200 border-t rounded-b absolute bottom-0 w-full flex items-center gap-2 text-gray-800 justify-center text-base font-medium'
       >

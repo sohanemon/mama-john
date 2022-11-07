@@ -12,11 +12,12 @@ const OrderReview = () => {
     return () => {};
   }, []);
   function updateMatchedProduct() {
-    let localStorage = loadFromDb();
+    let localStorageData = loadFromDb();
     let matchedWithLS = [];
-    for (const i in localStorage) {
-      const matched = products.find((el) => el.id === i);
-      matched.quantity = localStorage[i];
+    console.log(localStorageData);
+    for (const i in localStorageData) {
+      const matched = products.find((el) => el._id === i);
+      matched.quantity = localStorageData[i];
       matchedWithLS.push(matched);
     }
     setmatchedProduct(matchedWithLS);
@@ -29,7 +30,7 @@ const OrderReview = () => {
         <div className='grid grid-cols-2'>
           <div className='space-y-5 flex my-10 flex-col justify-center'>
             {matchedProduct.map((el) => (
-              <SingleOrderCard {...el} key={el.id} />
+              <SingleOrderCard {...el} key={el._id} />
             ))}
           </div>
           <div>

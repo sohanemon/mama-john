@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -15,9 +16,9 @@ export const ProductContext = createContext([]);
 function App() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("./data/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    axios
+      .get(`${process.env.REACT_APP_host}/products`)
+      .then((data) => setProducts(data.data));
     if (window.location.pathname !== "/") window.location.pathname = "/";
     //note: go to route page at any cost. Alternative to Netlify's _redirects
     return () => {};

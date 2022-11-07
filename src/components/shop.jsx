@@ -24,10 +24,10 @@ const Shop = (d) => {
     //getting data from local storage for first time
     const dbObject = loadFromDb();
     const matchedProduct = Object.keys(dbObject).map((el) =>
-      products.find((i) => i.id === el)
+      products.find((i) => i._id === el)
     );
     const x = matchedProduct.every((el) => el); //note: let check the data is loaded or not
-    x && matchedProduct.forEach((p) => (p.quantity = dbObject[p?.id]));
+    x && matchedProduct.forEach((p) => (p.quantity = dbObject[p?._id]));
     setAddedProduct(matchedProduct);
     return () => {};
   }, [products]);
@@ -44,7 +44,8 @@ const Shop = (d) => {
     else ++product.quantity;
 
     setAddedProduct((p) => [...p, product]);
-    addToDb(product.id);
+    console.log(product);
+    addToDb(product._id);
   };
   return (
     <div className='grid grid-cols-12 '>
@@ -53,7 +54,7 @@ const Shop = (d) => {
           <Product
             handleAddedProduct={handleAddedProduct}
             {...el}
-            key={el.id}
+            key={el._id}
           />
         ))}
       </div>
